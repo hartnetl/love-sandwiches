@@ -33,24 +33,27 @@ def get_sales_data():
     sales_data = data_str.split(",")
     # the split() method returns the broken up values as a list. Here they're broken at the commas.
     # a list like this is returned => ['1', '2', '3', '4', '5', '6', '6']
-    #print(sales_data)
+    # print(sales_data)
 
     validate_data(sales_data)
 
 
 def validate_data(values):
     """
-    Inside the try, converts all string values into integers. 
+    Inside the try, converts all string values into integers.
     Raises ValueError if strings cannot be converted into int, or
     if there aren't exactly 6 values
     """
     # print(values)
 
     try:
-        if len(values) !=6:
+        [int(value) for value in values]
+        # the above says for each value in values, change value to an integer
+        if len(values) != 6:
             raise ValueError(
-        f"Exactly 6 values are required, you provided {len(values)}")
+                f"Exactly 6 values are required, you provided {len(values)}")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again")
+
 
 get_sales_data()
