@@ -21,21 +21,31 @@ SHEET = GSPREAD_CLIENT.open('love_sandwiches')  # parameter is the name of our s
 def get_sales_data():
     """
     Get sales figures input from user
+    Runs while loop to ask user for data. Converts given string of data to list of values.
+    Use if statement to validate values.
     """
-    print("Please enter sales data from the last market.")
-    print("Data should be six numbers, separated by commas.")
-    print("Example: 10,20,30,40,50,60\n")  # Add \n to give more space in the terminal
+    # Create a while loop to ask for data until it's correctly entered
+    while True:
+        print("Please enter sales data from the last market.")
+        print("Data should be six numbers, separated by commas.")
+        print("Example: 10,20,30,40,50,60\n")  # Add \n to give more space in the terminal
 
-    data_str = input("Enter your data here: ")
-    # print(f"The data provided here is {data_str}") <- Use to test fctn is working, then delete
+        data_str = input("Enter your data here: ")
+        # print(f"The data provided here is {data_str}") <- Use to test fctn is working, then delete
 
-    # To check input data is valid, we must covert data to list of values
-    sales_data = data_str.split(",")
-    # the split() method returns the broken up values as a list. Here they're broken at the commas.
-    # a list like this is returned => ['1', '2', '3', '4', '5', '6', '6']
-    # print(sales_data)
+        # To check input data is valid, we must covert data to list of values
+        sales_data = data_str.split(",")
+        # the split() method returns the broken up values as a list. Here they're broken at the commas.
+        # a list like this is returned => ['1', '2', '3', '4', '5', '6', '6']
+        # print(sales_data)
 
-    validate_data(sales_data)
+        if validate_data(sales_data):
+            # if there are no errors, True is returned from validate_data and the below runs and loop is stopped.
+            # If there is an error, the code will begin again thanks to the while loop.
+            print("Data is valid!")
+            break
+
+    return sales_data
 
 
 def validate_data(values):
@@ -54,6 +64,10 @@ def validate_data(values):
                 f"Exactly 6 values are required, you provided {len(values)}")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again")
+        return False
+
+    return True
+    # returning true or false for get_sales_data above
 
 
-get_sales_data()
+data = get_sales_data()
