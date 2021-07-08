@@ -70,27 +70,28 @@ def validate_data(values):
     return True
     # returning true or false for get_sales_data above
 
+# THE BELOW SHOULD BE DELETED
+# IT WAS REFACTORED TO UPDATE WORKSHEET FUNCTION
+# def update_sales_worksheet(data):
+#     """
+#     Update sales worksheet, add new row with the list data provided
+#     """
+#     print("updating sales worksheet...\n")
+#     # Adding this print gives feedback to user while task completes
+#     # It also helps with debugging, as you'll know if this step was completed
+#     sales_worksheet = SHEET.worksheet("sales")
+#     sales_worksheet.append_row(data)
+#     print("sales worksheet updated successfully.\n")
 
-def update_sales_worksheet(data):
-    """
-    Update sales worksheet, add new row with the list data provided
-    """
-    print("updating sales worksheet...\n")
-    # Adding this print gives feedback to user while task completes
-    # It also helps with debugging, as you'll know if this step was completed
-    sales_worksheet = SHEET.worksheet("sales")
-    sales_worksheet.append_row(data)
-    print("sales worksheet updated successfully.\n")
 
-
-def update_surplus_worksheet(surplus_data):
-    """
-    Add a new row of data to the surplus worksheet
-    """
-    print("updating surplus worksheet... \n")
-    surplus_worksheet = SHEET.worksheet("surplus")
-    surplus_worksheet.append_row(surplus_data)
-    print("Surplus worksheet succesfully updated")
+# def update_surplus_worksheet(surplus_data):
+#     """
+#     Add a new row of data to the surplus worksheet
+#     """
+#     print("updating surplus worksheet... \n")
+#     surplus_worksheet = SHEET.worksheet("surplus")
+#     surplus_worksheet.append_row(surplus_data)
+#     print("Surplus worksheet succesfully updated")
 
 
 def update_worksheet(data, worksheet):
@@ -127,6 +128,24 @@ def calculate_surplus_data(sales_row):
     return surplus_data
 
 
+def get_last_5_entries_sales():
+    """
+    Collects columns of data from sales worksheet, collecting the last 5 entries 
+    for each sandwich and returns the data as a list of lists.
+    """
+    sales = SHEET.worksheet("sales")
+    # column = sales.col_values(3)  # this is a gspread method. Index starts at 1 
+    # print(column)
+
+    columns = []
+    for ind in range(1, 7):
+        column = sales.col_values(ind)
+        columns.append(column[-5:])  # The colon creates the list of lists
+    # pprint(columns)
+
+    return columns
+
+
 def main():
     """
     Run all program functions
@@ -139,4 +158,5 @@ def main():
 
 
 print("Welcome to Love Sandwiches Data Automation. \n")
-main()
+# main()
+sales_columns = get_last_5_entries_sales()
