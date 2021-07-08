@@ -1,6 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
+# from pprint import pprint
 
 SCOPE = [  # SCOPE is written in caps to tell other developers its a const variable, do not change
     "https://www.googleapis.com/auth/spreadsheets",
@@ -32,7 +32,7 @@ def get_sales_data():
         print("Data should be six numbers, separated by commas.")
         print("Example: 10,20,30,40,50,60\n")  # Add \n to give more space in the terminal
 
-        data_str = input("Enter your data here: ")
+        data_str = input("Enter your data here: \n")
         # print(f"The data provided here is {data_str}") <- Use to test fctn is working, then delete
 
         # To check input data is valid, we must covert data to list of values
@@ -130,11 +130,11 @@ def calculate_surplus_data(sales_row):
 
 def get_last_5_entries_sales():
     """
-    Collects columns of data from sales worksheet, collecting the last 5 entries 
+    Collects columns of data from sales worksheet, collecting the last 5 entries
     for each sandwich and returns the data as a list of lists.
     """
     sales = SHEET.worksheet("sales")
-    # column = sales.col_values(3)  # this is a gspread method. Index starts at 1 
+    # column = sales.col_values(3) # this is a gspread method. Index starts at 1
     # print(column)
 
     columns = []
@@ -144,6 +144,7 @@ def get_last_5_entries_sales():
     # pprint(columns)
 
     return columns
+
 
 def calculate_stock_data(data):
     """
@@ -156,11 +157,12 @@ def calculate_stock_data(data):
         int_column = [int(num) for num in column]
         average = sum(int_column) / len(int_column)
         # The above denominator could also be 5 here, as that value will never change
-        stock_num = average * 1.1   # Add that 10% extra 
+        stock_num = average * 1.1   # Add that 10% extra
         new_stock_data.append(round(stock_num))
 
     print(f" new stock values: {new_stock_data}")
     return new_stock_data
+
 
 def main():
     """
