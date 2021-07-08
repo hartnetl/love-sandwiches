@@ -32,7 +32,7 @@ def get_sales_data():
         print("Data should be six numbers, separated by commas.")
         print("Example: 10,20,30,40,50,60\n")  # Add \n to give more space in the terminal
 
-        data_str = input("Enter your data here: \n")
+        data_str = input("Enter your data here please: \n")
         # print(f"The data provided here is {data_str}") <- Use to test fctn is working, then delete
 
         # To check input data is valid, we must covert data to list of values
